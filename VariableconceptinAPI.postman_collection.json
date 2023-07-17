@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "00f02b34-1f14-4c7c-b5cc-739730c2abc0",
+		"name": "VariableconceptinAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24637381",
+		"_collection_link": "https://interstellar-equinox-526972.postman.co/workspace/a29aaabf-96fa-4706-b0fe-b07b2fcc00ee/collection/24637381-00f02b34-1f14-4c7c-b5cc-739730c2abc0?action=share&creator=24637381&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "GETUSER",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//local variable\r",
+							"pm.variables.set(\"url_local\",\"https://reqres.in/\")\r",
+							"\r",
+							"//we can create all variable using pre request script also\r",
+							"\r",
+							"//global variable\r",
+							"pm.globals.set(\"global_page\",\"2\");\r",
+							"\r",
+							"//collection variable\r",
+							"pm.collectionVariables.set(\"userid_collection\",\"2\");\r",
+							"\r",
+							"\r",
+							"//envrionment variable\r",
+							"pm.environment.set(\"user_id_envt\",\"2\");\r",
+							"\r",
+							"//we can unset all variable after use. for this we have to write unset logic in test\r",
+							"//eg pm.environment.unset(\"user_id_envt\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//we can get all  variable value\r",
+							"console.log(pm.environment.get(\"user_id_envt\"));\r",
+							"console.log(pm.collectionVariables.get(\"userid_collection\"));\r",
+							"console.log(pm.globals.get(\"global_page\"));\r",
+							"console.log(pm.variables.get(\"url_local\"));\r",
+							"\r",
+							"pm.environment.unset(\"user_id_envt\");\r",
+							"pm.collectionVariables.unset(\"userid_collection\");\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_local}}api/users?page={{userid_collection}}",
+					"host": [
+						"{{url_local}}api"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "{{userid_collection}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n \"name\": \"pavan\",\r\n \"job\": \"trainer\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_global}}api/users",
+					"host": [
+						"{{url_global}}api"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"pavan\",\r\n \"job\": \"engineer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_global}}api/users/378",
+					"host": [
+						"{{url_global}}api"
+					],
+					"path": [
+						"users",
+						"378"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url_global}}api/users/416",
+					"host": [
+						"{{url_global}}api"
+					],
+					"path": [
+						"users",
+						"416"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_collection",
+			"value": "https://reqres.in/",
+			"type": "string"
+		}
+	]
+}

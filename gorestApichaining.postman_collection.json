@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "6bd90043-e122-40e9-a6a6-d27144397170",
+		"name": "gorestApichaining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24637381",
+		"_collection_link": "https://interstellar-equinox-526972.postman.co/workspace/a29aaabf-96fa-4706-b0fe-b07b2fcc00ee/collection/24637381-6bd90043-e122-40e9-a6a6-d27144397170?action=share&creator=24637381&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "create request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var random=Math.random().toString(36).substring(2);\r",
+							"var email=\"test\"+random+\"@gmail.com\";\r",
+							"var name= \"test\"+random;\r",
+							"\r",
+							"pm.environment.set(\"username_env\",name)\r",
+							"pm.environment.set(\"email_env\",email)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonresponse=JSON.parse(responseBody);\r",
+							"var data=jsonresponse.id;\r",
+							"pm.environment.set(\"id_env\",data);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{username_env}}\",\r\n    \"gender\":\"male\",\r\n    \"email\":\"{{email_env}}\",\r\n    \"status\":\"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//validating the response\r",
+							"\r",
+							"pm.test(\"Test data validation\",()=>{\r",
+							"   var jsondata=pm.response.json()\r",
+							"    pm.expect(jsondata.name).to.be.eql(pm.environment.get(\"username_env\"))\r",
+							"    pm.expect(jsondata.email).to.be.eql(pm.environment.get(\"email_env\"))\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{id_env}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{id_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{username_env}}\",\r\n    \"gender\":\"male\",\r\n    \"email\":\"{{email_env}}\",\r\n    \"status\":\"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{id_env}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{id_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.unset(\"username_env\");\r",
+							"pm.environment.unset(\"email_env\");\r",
+							"pm.environment.unset(\"id_env\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{id_env}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{id_env}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "b35d4519760bb086f50e222bd44bd9957cf345a3fea60a72f9aeb5b4d9d4116e\t",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
